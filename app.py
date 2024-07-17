@@ -23,7 +23,7 @@ if page == "Home":
     
     st.write('### Contact Information')
     st.write('Email: h3rasheed@gmail.com')
-    st.write('Phone: (226) 7911310-7890')
+    st.write('Phone: (226) 791-1310')
     st.write('Location: London, Ontario')
 
 # Resume page
@@ -32,6 +32,11 @@ elif page == "Resume":
     
     # Display local resume file
     resume = 'HR_Resume.pdf'  # Ensure 'HR_Resume.pdf' is in your project directory
+    
+    # Debugging: List files in the current directory
+    st.write("Current directory files:")
+    st.write(os.listdir("."))
+
     if os.path.exists(resume):
         with open(resume, 'rb') as file:
             btn = st.download_button(
@@ -65,7 +70,7 @@ elif page == "Resume":
 
     st.write('**Marketing and Sales Manager**')
     st.write('TaskTak, Redmond, WA | 2022 – 2023')
-    st.write(''''
+    st.write('''
     - Led the successful expansion into the Canadian market for a SaaS product achieving a remarkable 20% increase in sales in the first year demonstrating effective market penetration and growth strategy execution.
     - Crafted and executed a comprehensive marketing strategy significantly enhancing brand awareness and customer acquisition across Canada tailored to the unique demands and opportunities of the SaaS industry.
     - Forged and nurtured strategic partnerships with key distributors and partners in Canada broadening distribution channels and unlocking new growth avenues essential for scaling a SaaS business.
@@ -76,7 +81,7 @@ elif page == "Resume":
 
     st.write('**Writer**')
     st.write('Mississauga, ON | 2017 – 2022')
-    st.write(''''
+    st.write('''
     - Wrote and published “Instructions to Finding Peace in Pain: An Empirical Narrative” with TellWell Publishing.
     - Conducted extensive research on topics such as pain management, mindfulness meditation, spirituality, and psychology.
     - Interviewed patients with life-changing physical and neurological health issues to record their experiences and perception of pain and documented their strategies of finding peace in the face of physical and psychological pain.
@@ -88,7 +93,7 @@ elif page == "Resume":
 
     st.write('**Data Analysis & Research Assistant**')
     st.write('University of Waterloo, Waterloo, ON | 2016 – 2017')
-    st.write(''''
+    st.write('''
     - Research topic: The role of heuristics and personality in strategic business decision-making.
     - Developed a Web crawler in Python to download all 10-K and 10-Q Securities and Exchange Commission filings for S&P 1500 from 1994 to 2017.
     - Parsed the html files of the 10-K filings and extracted relevant textual data.
@@ -98,7 +103,7 @@ elif page == "Resume":
 
     st.write('**Data Scientist & Product Manager**')
     st.write('Curiato, Waterloo, ON | 2016 – 2017')
-    st.write(''''
+    st.write('''
     - Led research team for data collection and to extract and identify main physiological predictors for pressure ulcers to incorporate into predictive model.
     - Presented Pressure ulcer prevention technology at competitions, showcases, exhibitions and won over $100000 in grants.
     - Mined Twitter data to find trends and performed sentiment analysis of current competing pressure ulcer prevention devices.
