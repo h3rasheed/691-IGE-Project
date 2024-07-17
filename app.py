@@ -22,7 +22,7 @@ if page == "Home":
     
     st.write('### Contact Information')
     st.write('Email: h3rasheed@gmail.com')
-    st.write('Phone: (226) 791-71310')
+    st.write('Phone: (226) 791-1310')
     st.write('Location: London, Ontario')
 
 # Resume page
@@ -94,7 +94,7 @@ elif page == "Resume":
 
     st.write('**Data Scientist & Product Manager**')
     st.write('Curiato, Waterloo, ON | 2016 – 2017')
-    st.write('''
+    st.write(''''
     - Led research team for data collection and to extract and identify main physiological predictors for pressure ulcers to incorporate into predictive model.
     - Presented Pressure ulcer prevention technology at competitions, showcases, exhibitions and won over $100000 in grants.
     - Mined Twitter data to find trends and performed sentiment analysis of current competing pressure ulcer prevention devices.
@@ -144,19 +144,20 @@ elif page == "Intergenerational Income Mobility Predictor":
     st.write('Enter the socio-economic factors to predict intergenerational income mobility.')
 
     # Input fields for the features
+    educational_attainment_primary = st.number_input('Educational attainment, at least completed primary (% of relevant age group)')
     gdp_per_capita = st.number_input('GDP per Capita')
     gini_coefficient = st.number_input('Gini Coefficient')
+    income_share_lowest_20 = st.number_input('Income Share Held by Lowest 20%')
     income_share_top_10 = st.number_input('Income Share of the Top 10%')
     poverty_headcount_ratio = st.number_input('Poverty Headcount Ratio')
-    income_share_lowest_20 = st.number_input('Income Share Held by Lowest 20%')
     school_enrollment_primary = st.number_input('School Enrollment, Primary (% net)')
     school_enrollment_secondary = st.number_input('School Enrollment, Secondary (% net)')
-    educational_attainment_primary = st.number_input('Educational Attainment, Primary')
-    unemployment_total = st.number_input('Unemployment, Total (% of labor force)')
+    unemployment_total = st.number_input('Unemployment, Total (% of total labor force)')
+    gdp_per_capita_lag = st.number_input('GDP per Capita (Lagged)')
 
     # Predict button
     if st.button('Predict'):
-        input_data = np.array([[gdp_per_capita, gini_coefficient, income_share_top_10, poverty_headcount_ratio, income_share_lowest_20, school_enrollment_primary, school_enrollment_secondary, educational_attainment_primary, unemployment_total]])
+        input_data = np.array([[educational_attainment_primary, gdp_per_capita, gini_coefficient, income_share_lowest_20, income_share_top_10, poverty_headcount_ratio, school_enrollment_primary, school_enrollment_secondary, unemployment_total, gdp_per_capita_lag]])
         input_data = scaler.transform(input_data)
         prediction = model.predict(input_data)
-        st.write(f'Predicted Intergenerational Income Mobility: {prediction[0]}')
+        st.write(f'Predicted Intergenerational Income Mobility (IGE): {prediction[0]}')
