@@ -22,8 +22,8 @@ if page == "Home":
     st.image(image, caption='Haneefuddin Rasheed', use_column_width=True)
     
     st.write('### Contact Information')
-    st.write('Email: h3rasheed.com')
-    st.write('Phone: (226) 791-1310')
+    st.write('Email: h3rasheed@gmail.com')
+    st.write('Phone: (226) 7911310-7890')
     st.write('Location: London, Ontario')
 
 # Resume page
@@ -112,4 +112,56 @@ elif page == "Resume":
     st.write('The University of Texas, Austin, Texas | 2021')
 
     st.write('**B.A. in Economics**')
-    st.write('University of Waterloo, Waterloo, ON | 201
+    st.write('University of Waterloo, Waterloo, ON | 2012 – 2016')
+
+    st.write('### Computer & Other Skills')
+    st.write('''
+    - Proficient with Microsoft Word, Excel, Power Point
+    - Familiar with Git, SAP, and SharePoint
+    - Languages: Python/R-Proficient 
+    - Visualizations: PowerBI/Tableau
+    - Databases: PostgreSQL/T-SQL
+    - ML/AI: Scikit-Learn/TensorFlow
+    - Cloud Computing: Azure/AWS
+    - Operating Systems: Windows/Linux
+    - Big Data: PySpark
+    - Human Resources Info Systems
+    - Healthcare Data Governance
+    - Environmental Awareness
+    - Business Acumen
+    - Data Ethics
+    ''')
+
+    st.write('### Certifications and Licenses')
+    st.write('**DP-203 Microsoft Certified: Azure Data Engineer Associate**')
+    st.write('Certificate ID: 929933661')
+
+# Projects page
+elif page == "Projects":
+    st.title('Projects')
+    st.write('### General Projects')
+    st.write('Links to other completed projects will be provided through my [GitHub profile](https://github.com/your_github_profile).')
+
+# Intergenerational Income Mobility Predictor page
+elif page == "Intergenerational Income Mobility Predictor":
+    st.title('Intergenerational Income Mobility Predictor')
+    st.write('Enter the socio-economic factors to predict intergenerational income mobility.')
+
+    # Input fields for the features
+    educational_attainment_primary = st.number_input('Educational attainment, at least completed primary (% of relevant age group)')
+    gdp_per_capita = st.number_input('GDP per Capita')
+    gini_coefficient = st.number_input('Gini Coefficient')
+    income_share_lowest_20 = st.number_input('Income Share Held by Lowest 20%')
+    income_share_top_10 = st.number_input('Income Share of the Top 10%')
+    poverty_headcount_ratio = st.number_input('Poverty Headcount Ratio')
+    school_enrollment_primary = st.number_input('School Enrollment, Primary (% net)')
+    school_enrollment_secondary = st.number_input('School Enrollment, Secondary (% net)')
+    unemployment_total = st.number_input('Unemployment, Total (% of total labor force)')
+    gdp_per_capita_lag = st.number_input('GDP per Capita (Lagged)')
+
+    # Predict button
+    if st.button('Predict'):
+        input_data = np.array([[educational_attainment_primary, gdp_per_capita, gini_coefficient, income_share_lowest_20, income_share_top_10, poverty_headcount_ratio, school_enrollment_primary, school_enrollment_secondary, unemployment_total, gdp_per_capita_lag]])
+        input_data = scaler.transform(input_data)
+        prediction = model.predict(input_data)
+        st.write(f'Predicted Intergenerational Income Mobility (IGE): {prediction[0]}')
