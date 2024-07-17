@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 from PIL import Image
+import os
 
 # Load the model and scaler
 model = joblib.load('best_IGE_model.pkl')
@@ -21,7 +22,7 @@ if page == "Home":
     st.image(image, caption='Haneefuddin Rasheed', use_column_width=True)
     
     st.write('### Contact Information')
-    st.write('Email: h3rasheed@gmail.com')
+    st.write('Email: h3rasheed.com')
     st.write('Phone: (226) 791-1310')
     st.write('Location: London, Ontario')
 
@@ -31,13 +32,16 @@ elif page == "Resume":
     
     # Display local resume file
     resume = 'HR_Resume.pdf'  # Ensure 'HR_Resume.pdf' is in your project directory
-    with open(resume, 'rb') as file:
-        btn = st.download_button(
-            label="Download Resume",
-            data=file,
-            file_name=resume,
-            mime='application/pdf'
-        )
+    if os.path.exists(resume):
+        with open(resume, 'rb') as file:
+            btn = st.download_button(
+                label="Download Resume",
+                data=file,
+                file_name=resume,
+                mime='application/pdf'
+            )
+    else:
+        st.error('Resume file not found. Please ensure HR_Resume.pdf is in the project directory.')
 
     st.write('## HANEEF RASHEED')
     st.write('### DATA SPECIALIST')
@@ -61,7 +65,7 @@ elif page == "Resume":
 
     st.write('**Marketing and Sales Manager**')
     st.write('TaskTak, Redmond, WA | 2022 – 2023')
-    st.write('''
+    st.write(''''
     - Led the successful expansion into the Canadian market for a SaaS product achieving a remarkable 20% increase in sales in the first year demonstrating effective market penetration and growth strategy execution.
     - Crafted and executed a comprehensive marketing strategy significantly enhancing brand awareness and customer acquisition across Canada tailored to the unique demands and opportunities of the SaaS industry.
     - Forged and nurtured strategic partnerships with key distributors and partners in Canada broadening distribution channels and unlocking new growth avenues essential for scaling a SaaS business.
@@ -72,7 +76,7 @@ elif page == "Resume":
 
     st.write('**Writer**')
     st.write('Mississauga, ON | 2017 – 2022')
-    st.write('''
+    st.write(''''
     - Wrote and published “Instructions to Finding Peace in Pain: An Empirical Narrative” with TellWell Publishing.
     - Conducted extensive research on topics such as pain management, mindfulness meditation, spirituality, and psychology.
     - Interviewed patients with life-changing physical and neurological health issues to record their experiences and perception of pain and documented their strategies of finding peace in the face of physical and psychological pain.
@@ -84,7 +88,7 @@ elif page == "Resume":
 
     st.write('**Data Analysis & Research Assistant**')
     st.write('University of Waterloo, Waterloo, ON | 2016 – 2017')
-    st.write('''
+    st.write(''''
     - Research topic: The role of heuristics and personality in strategic business decision-making.
     - Developed a Web crawler in Python to download all 10-K and 10-Q Securities and Exchange Commission filings for S&P 1500 from 1994 to 2017.
     - Parsed the html files of the 10-K filings and extracted relevant textual data.
@@ -108,56 +112,4 @@ elif page == "Resume":
     st.write('The University of Texas, Austin, Texas | 2021')
 
     st.write('**B.A. in Economics**')
-    st.write('University of Waterloo, Waterloo, ON | 2012 – 2016')
-
-    st.write('### Computer & Other Skills')
-    st.write('''
-    - Proficient with Microsoft Word, Excel, Power Point
-    - Familiar with Git, SAP, and SharePoint
-    - Languages: Python/R-Proficient 
-    - Visualizations: PowerBI/Tableau
-    - Databases: PostgreSQL/T-SQL
-    - ML/AI: Scikit-Learn/TensorFlow
-    - Cloud Computing: Azure/AWS
-    - Operating Systems: Windows/Linux
-    - Big Data: PySpark
-    - Human Resources Info Systems
-    - Healthcare Data Governance
-    - Environmental Awareness
-    - Business Acumen
-    - Data Ethics
-    ''')
-
-    st.write('### Certifications and Licenses')
-    st.write('**DP-203 Microsoft Certified: Azure Data Engineer Associate**')
-    st.write('Certificate ID: 929933661')
-
-# Projects page
-elif page == "Projects":
-    st.title('Projects')
-    st.write('### General Projects')
-    st.write('Links to other completed projects will be provided through my [GitHub profile](https://github.com/your_github_profile).')
-
-# Intergenerational Income Mobility Predictor page
-elif page == "Intergenerational Income Mobility Predictor":
-    st.title('Intergenerational Income Mobility Predictor')
-    st.write('Enter the socio-economic factors to predict intergenerational income mobility.')
-
-    # Input fields for the features
-    educational_attainment_primary = st.number_input('Educational attainment, at least completed primary (% of relevant age group)')
-    gdp_per_capita = st.number_input('GDP per Capita')
-    gini_coefficient = st.number_input('Gini Coefficient')
-    income_share_lowest_20 = st.number_input('Income Share Held by Lowest 20%')
-    income_share_top_10 = st.number_input('Income Share of the Top 10%')
-    poverty_headcount_ratio = st.number_input('Poverty Headcount Ratio')
-    school_enrollment_primary = st.number_input('School Enrollment, Primary (% net)')
-    school_enrollment_secondary = st.number_input('School Enrollment, Secondary (% net)')
-    unemployment_total = st.number_input('Unemployment, Total (% of total labor force)')
-    gdp_per_capita_lag = st.number_input('GDP per Capita (Lagged)')
-
-    # Predict button
-    if st.button('Predict'):
-        input_data = np.array([[educational_attainment_primary, gdp_per_capita, gini_coefficient, income_share_lowest_20, income_share_top_10, poverty_headcount_ratio, school_enrollment_primary, school_enrollment_secondary, unemployment_total, gdp_per_capita_lag]])
-        input_data = scaler.transform(input_data)
-        prediction = model.predict(input_data)
-        st.write(f'Predicted Intergenerational Income Mobility (IGE): {prediction[0]}')
+    st.write('University of Waterloo, Waterloo, ON | 201
