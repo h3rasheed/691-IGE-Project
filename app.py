@@ -2,7 +2,6 @@ import streamlit as st
 import joblib
 import numpy as np
 from PIL import Image
-import os
 
 # Load the model and scaler
 model = joblib.load('best_IGE_model.pkl')
@@ -22,31 +21,13 @@ if page == "Home":
     st.image(image, caption='Haneefuddin Rasheed', use_column_width=True)
     
     st.write('### Contact Information')
-    st.write('Email: h3rasheed@gmail.com')
-    st.write('Phone: (226) 791-1310')
+    st.write('Email: haneef@example.com')
+    st.write('Phone: (123) 456-7890')
     st.write('Location: London, Ontario')
 
 # Resume page
 elif page == "Resume":
     st.title('Resume')
-    
-    # Display local resume file
-    resume = 'HR_Resume.pdf'  # Ensure 'HR_Resume.pdf' is in your project directory
-    
-    # Debugging: List files in the current directory
-    st.write("Current directory files:")
-    st.write(os.listdir("."))
-
-    if os.path.exists(resume):
-        with open(resume, 'rb') as file:
-            btn = st.download_button(
-                label="Download Resume",
-                data=file,
-                file_name=resume,
-                mime='application/pdf'
-            )
-    else:
-        st.error('Resume file not found. Please ensure HR_Resume.pdf is in the project directory.')
 
     st.write('## HANEEF RASHEED')
     st.write('### DATA SPECIALIST')
@@ -81,7 +62,7 @@ elif page == "Resume":
 
     st.write('**Writer**')
     st.write('Mississauga, ON | 2017 – 2022')
-    st.write('''
+    st.write(''''
     - Wrote and published “Instructions to Finding Peace in Pain: An Empirical Narrative” with TellWell Publishing.
     - Conducted extensive research on topics such as pain management, mindfulness meditation, spirituality, and psychology.
     - Interviewed patients with life-changing physical and neurological health issues to record their experiences and perception of pain and documented their strategies of finding peace in the face of physical and psychological pain.
@@ -93,7 +74,7 @@ elif page == "Resume":
 
     st.write('**Data Analysis & Research Assistant**')
     st.write('University of Waterloo, Waterloo, ON | 2016 – 2017')
-    st.write('''
+    st.write(''''
     - Research topic: The role of heuristics and personality in strategic business decision-making.
     - Developed a Web crawler in Python to download all 10-K and 10-Q Securities and Exchange Commission filings for S&P 1500 from 1994 to 2017.
     - Parsed the html files of the 10-K filings and extracted relevant textual data.
@@ -103,7 +84,7 @@ elif page == "Resume":
 
     st.write('**Data Scientist & Product Manager**')
     st.write('Curiato, Waterloo, ON | 2016 – 2017')
-    st.write('''
+    st.write(''''
     - Led research team for data collection and to extract and identify main physiological predictors for pressure ulcers to incorporate into predictive model.
     - Presented Pressure ulcer prevention technology at competitions, showcases, exhibitions and won over $100000 in grants.
     - Mined Twitter data to find trends and performed sentiment analysis of current competing pressure ulcer prevention devices.
@@ -120,7 +101,7 @@ elif page == "Resume":
     st.write('University of Waterloo, Waterloo, ON | 2012 – 2016')
 
     st.write('### Computer & Other Skills')
-    st.write('''
+    st.write(''''
     - Proficient with Microsoft Word, Excel, Power Point
     - Familiar with Git, SAP, and SharePoint
     - Languages: Python/R-Proficient 
@@ -145,7 +126,7 @@ elif page == "Resume":
 elif page == "Projects":
     st.title('Projects')
     st.write('### General Projects')
-    st.write('Links to other completed projects will be provided through my [GitHub profile](https://github.com/your_github_profile).')
+    st.write('Links to other completed projects will be provided through my [GitHub profile](https://github.com/h3rasheed).')
 
 # Intergenerational Income Mobility Predictor page
 elif page == "Intergenerational Income Mobility Predictor":
