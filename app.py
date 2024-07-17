@@ -21,8 +21,8 @@ if page == "Home":
     st.image(image, caption='Haneefuddin Rasheed', use_column_width=True)
     
     st.write('### Contact Information')
-    st.write('Email: haneef@example.com')
-    st.write('Phone: (123) 456-7890')
+    st.write('Email: h3rasheed@gmail.com')
+    st.write('Phone: (226) 791-1310')
     st.write('Location: London, Ontario')
 
 # Resume page
