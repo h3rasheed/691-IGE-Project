@@ -62,7 +62,7 @@ elif page == "Resume":
 
     st.write('**Writer**')
     st.write('Mississauga, ON | 2017 – 2022')
-    st.write(''''
+    st.write('''
     - Wrote and published “Instructions to Finding Peace in Pain: An Empirical Narrative” with TellWell Publishing.
     - Conducted extensive research on topics such as pain management, mindfulness meditation, spirituality, and psychology.
     - Interviewed patients with life-changing physical and neurological health issues to record their experiences and perception of pain and documented their strategies of finding peace in the face of physical and psychological pain.
@@ -151,3 +151,13 @@ elif page == "Intergenerational Income Mobility Predictor":
         input_data = scaler.transform(input_data)
         prediction = model.predict(input_data)
         st.write(f'Predicted Intergenerational Income Mobility (IGE): {prediction[0]}')
+
+    # Explanation of IGE value
+    st.write("""
+    ### How to Interpret the IGE Value
+    The Intergenerational Income Elasticity (IGE) value is a measure of the degree to which income status is transmitted from one generation to the next. 
+    - **High IGE value**: Indicates low intergenerational mobility, meaning that children’s incomes are highly dependent on their parents’ incomes.
+    - **Low IGE value**: Indicates high intergenerational mobility, meaning that children’s incomes are less dependent on their parents’ incomes.
+    The value ranges from 0 to 1, where 0 represents perfect mobility (no relationship between parents’ and children’s incomes) and 1 represents perfect immobility (children’s incomes are completely determined by their parents’ incomes).
+    """)
+
