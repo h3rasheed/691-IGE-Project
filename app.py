@@ -5,8 +5,9 @@ import joblib
 # Load the model with error handling
 try:
     model = joblib.load('best_IGE_model.pkl')
+    scaler = joblib.load('scaler.pkl')  # Load the scaler
 except FileNotFoundError:
-    st.error("The model file 'best_IGE_model.pkl' was not found.")
+    st.error("The model file 'best_IGE_model.pkl' or 'scaler.pkl' was not found.")
 except joblib.externals.loky.process_executor.TerminatedWorkerError:
     st.error("The model file might be corrupted or incompatible.")
 except AttributeError as e:
