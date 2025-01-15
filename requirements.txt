@@ -1,6 +1,4 @@
-streamlit
-numpy
-pandas
-scikit-learn
-joblib
-Pillow
+streamlit==1.32.0
+scikit-learn==1.4.2
+joblib==1.4.2
+pillow==10.3.0
