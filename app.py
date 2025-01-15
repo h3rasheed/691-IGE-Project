@@ -4,12 +4,14 @@ import numpy as np
 from PIL import Image
 import os
 
-# Helper function to safely load files
+# Helper function to safely load files with debugging
 def safe_load(file_path, file_type="model"):
     try:
-        return joblib.load(file_path)
+        obj = joblib.load(file_path)
+        st.success(f"Successfully loaded {file_type} from {file_path}.")
+        return obj
     except Exception as e:
-        st.error(f"Failed to load {file_type} from {file_path}. Please check the file format and dependencies.")
+        st.error(f"Failed to load {file_type} from {file_path}. Error: {e}")
         st.stop()
 
 # Paths to model and scaler files
@@ -18,6 +20,7 @@ scaler_path = 'scaler.pkl'
 
 # Check if model and scaler files exist
 if os.path.exists(model_path) and os.path.exists(scaler_path):
+    st.info("Attempting to load the model and scaler...")
     model = safe_load(model_path, "model")
     scaler = safe_load(scaler_path, "scaler")
 else:
@@ -62,9 +65,6 @@ elif page == "Resume":
     except FileNotFoundError:
         st.warning("Resume file 'HR_Resume.pdf' is missing. Please add it to the project directory.")
 
-    # Add your resume content here (truncated for brevity)
-    st.write('### Professional Experience and Education')
-
 # Projects page
 elif page == "Projects":
     st.title('Projects')
@@ -90,11 +90,9 @@ elif page == "Intergenerational Income Mobility Predictor":
     # Predict button
     if st.button('Predict'):
         try:
-            input_data = np.array([[gdp_per_capita, gini_coefficient, income_share_top_10, poverty_headcount_ratio, 
-                                    income_share_lowest_20, school_enrollment_primary, school_enrollment_secondary, 
-                                    educational_attainment_primary, unemployment_total]])
+            input_data = np.array([[gdp_per_capita, gini_coefficient, income_share_top_10, poverty_headcount_ratio, income_share_lowest_20, school_enrollment_primary, school_enrollment_secondary, educational_attainment_primary, unemployment_total]])
             input_data = scaler.transform(input_data)
             prediction = model.predict(input_data)
             st.write(f'Predicted Intergenerational Income Mobility: {prediction[0]}')
         except Exception as e:
-            st.error(f"An error occurred during prediction: {e}")
+            st.error(f"Prediction failed. Error: {e}")
