@@ -7,11 +7,13 @@ from PIL import Image
 MODEL_PATH = "best_IGE_model.pkl"
 SCALER_PATH = "scaler.pkl"
 IMAGE_PATH = "Haneef Picture.png"
-RESUME_PATH = "HR_Resume.pdf"
 
-# Correct feature names
+# Placeholder for correct feature names
 FEATURE_NAMES = [
-    "parent_income", "education_years", "region_code", "employment_status", "gender", "age"
+    "gdp_per_capita", "gini_coefficient", "income_share_top_10_percent", 
+    "income_share_bottom_10_percent", "educational_attainment", 
+    "unemployment_rate", "healthcare_expenditure", "inflation_rate", 
+    "urban_population_share", "foreign_direct_investment"
 ]
 
 # Function to load objects (model/scaler)
@@ -34,26 +36,20 @@ scaler = load_object(SCALER_PATH, "scaler")
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox(
-    "Choose a page",
-    ["Home", "Resume", "Projects", "Intergenerational Income Mobility Predictor"]
-)
+page = st.sidebar.selectbox("Choose a page", ["Home", "Resume", "Projects", "Intergenerational Income Mobility Predictor"])
 
 # Home page
 if page == "Home":
     st.title("Welcome to Haneefuddin Rasheed's Homepage")
-    st.write(
-        "Hello! I am Haneefuddin Rasheed, a data scientist with a passion for understanding "
-        "and predicting socio-economic trends. This web application showcases my work and projects."
-    )
+    st.write("Hello! I am Haneefuddin Rasheed, a data scientist with a passion for understanding and predicting socio-economic trends.")
     
     # Display local image
     try:
-        image = Image.open(IMAGE_PATH)  # Ensure 'Haneef Picture.png' is in your project directory
-        st.image(image, caption="Haneefuddin Rasheed", use_column_width=True)
+        image = Image.open(IMAGE_PATH)
+        st.image(image, caption="Haneefuddin Rasheed", use_container_width=True)
     except FileNotFoundError:
-        st.error(f"Image file not found: {IMAGE_PATH}. Please ensure it is in the project directory.")
-    
+        st.error("Image file not found. Please ensure it is in the project directory.")
+
     st.write("### Contact Information")
     st.write("Email: h3rasheed@gmail.com")
     st.write("Phone: (226) 791-1310")
@@ -62,69 +58,36 @@ if page == "Home":
 # Resume page
 elif page == "Resume":
     st.title("Resume")
-    
-    # Display local resume file
-    try:
-        with open(RESUME_PATH, "rb") as file:
-            btn = st.download_button(
-                label="Download Resume",
-                data=file,
-                file_name="Haneef_Rasheed_Resume.pdf",
-                mime="application/pdf"
-            )
-    except FileNotFoundError:
-        st.error(f"Resume file not found: {RESUME_PATH}. Please ensure it is in the project directory.")
-    
-    st.write("## HANEEF RASHEED")
-    st.write("### DATA SPECIALIST")
-    st.write("### Professional Experience")
-    st.write("**Business Intelligence Analyst**")
-    st.write("London, ON | 2023 – 2024")
+    st.write("## Haneefuddin Rasheed - Data Specialist")
     st.write("""
-    - Led a Span of Control Optimization project aimed at reducing high turnover rates among clinical leaders 
-      by providing HR executives with actionable insights through prescriptive analytics.
-    ...
+    ### Professional Experience
+    **Business Intelligence Analyst**
+    - Developed interactive dashboards visualizing HR metrics.
+    - Conducted survival analysis to improve organizational stability.
+    
+    **Marketing and Sales Manager**
+    - Led SaaS expansion into the Canadian market.
+    - Forged strategic partnerships to enhance brand awareness.
     """)
 
-# Intergenerational Income Mobility Predictor page
+# Predictor page
 elif page == "Intergenerational Income Mobility Predictor":
     st.title("Intergenerational Income Mobility Predictor")
-    st.write(
-        "This tool predicts intergenerational income mobility based on factors such as parental income, education level, "
-        "region, employment status, gender, and age."
-    )
     
-    # User input
-    try:
-        parent_income = st.number_input("Parent Income (in USD)", min_value=0, value=50000, step=1000)
-        education_years = st.number_input("Years of Education", min_value=0, max_value=30, value=12)
-        region_code = st.selectbox("Region Code", options=[1, 2, 3, 4, 5])  # Adjust options as needed
-        employment_status = st.selectbox("Employment Status", options=["Unemployed", "Employed", "Self-Employed"])
-        gender = st.selectbox("Gender", options=["Male", "Female", "Other"])
-        age = st.slider("Age", min_value=18, max_value=80, value=30)
+    if model and scaler:
+        st.write("Enter the following socio-economic indicators:")
         
-        # Encode inputs if necessary
-        employment_mapping = {"Unemployed": 0, "Employed": 1, "Self-Employed": 2}
-        gender_mapping = {"Male": 0, "Female": 1, "Other": 2}
+        inputs = []
+        for feature in FEATURE_NAMES:
+            value = st.number_input(f"Enter {feature.replace('_', ' ').title()}:", value=0.0)
+            inputs.append(value)
         
-        employment_status_encoded = employment_mapping[employment_status]
-        gender_encoded = gender_mapping[gender]
-
-        # Input feature array
-        features = np.array([[parent_income, education_years, region_code, employment_status_encoded, gender_encoded, age]])
-        
-        # Scale features
-        if scaler:
-            features_scaled = scaler.transform(features)
-        else:
-            st.warning("Scaler not available. Proceeding with unscaled features.")
-            features_scaled = features
-        
-        # Predict
-        if model:
-            prediction = model.predict(features_scaled)
-            st.write(f"### Predicted Income: ${prediction[0]:,.2f}")
-        else:
-            st.error("Model not available. Unable to make predictions.")
-    except Exception as e:
-        st.error(f"Error during prediction: {e}")
+        if st.button("Predict"):
+            try:
+                inputs_scaled = scaler.transform([inputs])  # Scale the inputs
+                prediction = model.predict(inputs_scaled)
+                st.success(f"Predicted outcome: {prediction[0]}")
+            except Exception as e:
+                st.error(f"Error during prediction: {e}")
+    else:
+        st.error("Model and/or scaler not loaded. Please check the files.")
